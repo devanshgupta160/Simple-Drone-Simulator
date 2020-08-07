@@ -12,8 +12,8 @@
 ### Implementation:
 - Used an approximate version of the Newton-Euler Rigid Body equations to model the mechanics of the drone
 - Used an inner PID loop to set the temporary positional destnations and calculated the respective roll
-  and pitch angle deestinations and used the change in the respective error of yaw angles to configure the
-  PID destination for yaw and finally applied the PID on the yaw,roll,and pitch angles.
+  and pitch angle destinations and used the change in the respective error of yaw angles to configure the
+  PID destination for yaw and finally applied the PID on the yaw,roll,and pitch angles altogether.
 ### Running code on your system:
 - Clone this repository
 - Install Matplotlib and Numpy in your system
