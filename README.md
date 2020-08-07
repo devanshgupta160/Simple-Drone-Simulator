@@ -1,8 +1,4 @@
-# Simple-Drone-Simulator
-### Authors:
- - Devansh Gupta(2019160)
- - Mudit Aggarwal(2019063)
-### Cyborg - Robotics Club of IIIT-D
+# Cyborg - Robotics Club of IIIT-D
 ### Project Title: Drone Simulator from scratch
 ### References:
 - https://www.kth.se/polopoly_fs/1.588039.1550155544!/Thesis%20KTH%20-%20Francesco%20Sabatino.pdf
@@ -21,10 +17,11 @@
 ### Running code on your system:
 - Clone this repository
 - Install Matplotlib and Numpy in your system
-- run the command
+- Run the command below to run the simulator on the default param and waypoint files provided in the repo
     - python3 simulator.py
- - to run the simulator on the default param and waypoint files provided in the repo
-- run the command:
+- Run the command below to run the simulator on your own waypoint and param files named filename1.txt and 
+  filename2.txt respectively
     - python3 simulator.py --waypoints [filename1.txt] --params [filename2.txt] 
-  - to run the simulator on your own waypoint and param files named filename1.txt and filename2.txt
-    respectively
+### Authors:
+ - Devansh Gupta(2019160)
+ - Mudit Aggarwal(2019063)
