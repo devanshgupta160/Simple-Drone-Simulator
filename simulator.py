@@ -4,7 +4,7 @@ Authors:
 	Mudit Aggarwal(2019063)
 Cyborg - Robotics Club of IIIT-D
 
-Project Title: Flight Simulator from scratch
+Project Title: Drone Simulator from scratch
 
 References:
 	1. https://www.kth.se/polopoly_fs/1.588039.1550155544!/Thesis%20KTH%20-%20Francesco%20Sabatino.pdf
