@@ -4,7 +4,7 @@ Authors:
 	Mudit Aggarwal(2019063)
 Cyborg - Robotics Club of IIIT-D
 
-Project Title: Drone Simulator from scratch
+Project Title: Flight Simulator from scratch
 
 References:
 	1. https://www.kth.se/polopoly_fs/1.588039.1550155544!/Thesis%20KTH%20-%20Francesco%20Sabatino.pdf
@@ -34,7 +34,7 @@ def minmax(val, range):
         val = range[0]
     return val
 
-def reached(waypoint,a,b,c,d,max_error_coord=0.09, max_error_yaw=0.05):
+def reached(waypoint,a,b,c,d,max_error_coord=1, max_error_yaw=0.05):
     return ((abs(waypoint[0]-a) <= max_error_coord) and (abs(waypoint[1]-b) <= max_error_coord)\
          and (abs(waypoint[2]-c) <= max_error_coord) and (abs(waypoint[3]-d) <= max_error_yaw))
 
@@ -238,6 +238,8 @@ if __name__=='__main__':
     for waypoint in wp_reader:
         waypoint = list(map(float,waypoint.strip()[1:-1].split(",")))
         waypoint[3] *= pi/180 
+        ax.scatter(waypoint[0], waypoint[1], waypoint[2],marker="x")
+        ax.text(waypoint[0], waypoint[1], waypoint[2],"("+str(waypoint[0])+", "+str(waypoint[1])+", "+str(waypoint[2])+")")
         waypoints.append(waypoint)
     colors = ["black", "red", "red", "blue", "blue"]
     labels = ["","1", "2", "3", "4"]
@@ -269,15 +271,23 @@ if __name__=='__main__':
                     np.array(wp_s)[1:,2]-np.array(wp_s)[:-1,2], 
                     length = 0.5, normalize = True)
             ax.plot(np.array(wp_s)[:,0],np.array(wp_s)[:,1],np.array(wp_s)[:,2], "--")
+        for i in waypoints:
+            ax.scatter(i[0], i[1], i[2],marker="x")
+            ax.text(i[0], i[1], i[2],"("+str(i[0])+", "+str(i[1])+", "+str(i[2])+")")
+        ax.text(d.com[0]-0.25,d.com[1]-0.25,d.com[2]-0.25,"("+str(d.com[0])[:4]+", "+str(d.com[1])[:4]+", "+str(d.com[2])[:4]+")")
+        ax.text(0,0,5,"1 unit --> 1 m for x,y,z axes")
         if reached(waypoints[curr],d.state[0],d.state[1],d.state[2],d.state[8],max_error_coord,max_error_yaw):
-            if is_first:
-                start_time = time.time()
-                is_first = False
-            else:
-                if(time.time()-start_time > wait_time):
-                    if curr<len(waypoints):
-                        curr+=1
-                        is_first = True
+            print(curr)
+            if curr<len(waypoints):
+                curr+=1
+            # if is_first:
+            #     start_time = time.time()
+            #     is_first = False
+            # else:
+            #     if(time.time()-start_time > wait_time):
+            #         if curr<len(waypoints):
+            #             curr+=1
+            #             is_first = True
         if curr == len(waypoints):
             break
         d.controller_update(waypoints[curr][0],waypoints[curr][1],waypoints[curr][2],waypoints[curr][3])
@@ -304,4 +314,4 @@ if __name__=='__main__':
         ax.set_ylabel('Y')
         ax.set_zlabel('Z')
         fig.canvas.draw()
-        plt.pause(0.01)
+        plt.pause(0.000000000000001)
