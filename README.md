@@ -12,7 +12,7 @@ The forward and backward motion of the drone is known as pitch, the sideways mot
 The four rotors of a quadrotor are used to rotate the propellers which are then used to push the air downwards to give a liftoff to the quadrotor. Now the rotation of the four individual propellers are programmed in such a way that in the case of an unbalanced torque, the drone does not rotate due to the imbalance of rotational momentum caused by the propellers. So therefore, propellers along one direction rotate clockwise while the propellers along the other diagonal rotate along the anticlockwise direction.
 
 
-![rotor_labelling.png](https://github.com/devanshgupta160/Readme/blob/master/rotor_labelling.png "image_tooltip")
+![rotor_labelling.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/rotor_labelling.png "image_tooltip")
 
 *   **Roll**
 
@@ -30,7 +30,7 @@ The four rotors of a quadrotor are used to rotate the propellers which are then 
 Now, we have covered the basic intuition of drones but how are we to make a method which decides which combination of these three actions to take in order for the drone to reach a point that we want it to reach without keeping trajectory constraints in mind? So, essentially we are to describe the next state of the system from the current state using a series of functions applied on each state value and we get an overall working map of the drone’s internal control which we have shown below.
 
 
-![flowchart.png](https://github.com/devanshgupta160/Readme/blob/master/flowchart.png)
+![flowchart.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/flowchart.png)
 
 Now, if we are to formalize our core problem, then if would be as follows:
 
@@ -39,11 +39,11 @@ _Find a set of control equations such that when we release the drone from a stat
 **Quadrotor Mechanics**
 
 
-![basic_orientation.png](https://github.com/devanshgupta160/Readme/blob/master/basic_orientation.png "image_tooltip")
+![basic_orientation.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/basic_orientation.png "image_tooltip")
 
 The quadrotor is dealt with in its own frame, different from the inertial frame of reference. The rotations are dealt with by using Euler angle based mechanics.
 
-![orientation.png](https://github.com/devanshgupta160/Readme/blob/master/orientation.png "image_tooltip")
+![orientation.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/orientation.png "image_tooltip")
 
 The Euler angles based system works by breaking down every rotation into 3 consecutive fixed axis rotations (through the psi, theta, and phi angles). 
 
@@ -56,15 +56,15 @@ This is enough information to define the drone at any particular point uniquely.
 
 The main equations boil down to (Here ft represents the thrust factor associated with the quadrotor):
 
-![dynamics_eqns.png](https://github.com/devanshgupta160/Readme/blob/master/dynamics_eqns.png "image_tooltip")
+![dynamics_eqns.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/dynamics_eqns.png "image_tooltip")
 
 This might be a slightly more helpful schematic of the drone for the equations:
 
-![detailed_diagram.png](https://github.com/devanshgupta160/Readme/blob/master/detailed_diagram.png "image_tooltip")
+![detailed_diagram.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/detailed_diagram.png "image_tooltip")
 
 In addition to the above equations, we also used the Euler Newton Equation, as well as applied some small angle approximations.However, the approximations are close enough to effectively model most real time scenarios the drone might face.Additionally, we have also not considered the effect of wind speed on the drone. We have implemented the dynamics in the state vector representation version of the above equation which can be cleared from the code below:
 
-![dynamics.png](https://github.com/devanshgupta160/Readme/blob/master/dynamics.png "image_tooltip")
+![dynamics.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/dynamics.png "image_tooltip")
 
 **Quadrotor Control**
 
@@ -75,7 +75,7 @@ The drone is assumed to be in the linear region of controls (small angle approxi
 The control of this quadrotor is according to the control schematic
 
 
-![schematic.png](https://github.com/devanshgupta160/Readme/blob/master/schematic.png "image_tooltip")
+![schematic.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/schematic.png "image_tooltip")
 
 
 We have simulated the Height Controller, Position Controller, and Angle Controller in the code snippet given below and each block represents a PID controller(described below), which we can think of a device which minimizes the error between the desired value and current value by sending appropriate signals to the system. So, we have implemented a multi loop PID controller w.r.t the Position and Angle where the internal loop is the Position Controller where the desired values are fed and corresponding angle aims or references are set up for the external PID loop of the Angle controller. We can think of it in a way that if we are to move the drone to the right by a certain amount of units, then we can say that we are essentially mapping one rightward motion into a lot of angular configurations in between which the Angle controller tries to achieve. We will show the code snippet of the controller after we discuss PID in detail, so that there is a certain amount of clarity when interpreting the code. We need not simulate the Kalman Filters as we are simulating a drone so, we get those values by just computing the state dots and updating the current state using linearization to the next state and feeding the next state into the dynamics and so on.
@@ -86,7 +86,7 @@ Note that this section is a small digression into PID control and can be skipped
 
 The schematic of a PID controller can be shown as below:-
 
-![PID.png](https://github.com/devanshgupta160/Readme/blob/master/PID.png "image_tooltip")
+![PID.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/PID.png "image_tooltip")
 
 
 A PID controller consists of three parts:-
@@ -100,7 +100,7 @@ One thing to keep in mind is that these constants should be in a particular rang
 The code snippet for the controller we used in the simulation.
 
 
-![controlcode.png](https://github.com/devanshgupta160/Readme/blob/master/controlcode.png)
+![controlcode.png](https://github.com/devanshgupta160/Simple-Drone-Simulator/blob/master/Images/controlcode.png)
 
 **Input and Modelling**
 
